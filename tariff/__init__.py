@@ -13,6 +13,8 @@ original_import = builtins.__import__
 
 # Global tariff sheet
 _tariff_sheet = {}
+# Global tariff pause probability
+_tariff_pause_probability = 0.0
 
 # List of Trump-like phrases
 _trump_phrases = [
@@ -27,21 +29,33 @@ _trump_phrases = [
     "This is how we Keep America Coding Again!",
     "HUGE success!"
 ]
+_trump_pause_phrases = [
+    "They were getting a little bit yippy.",
+    "THIS IS A GREAT TIME TO BUY!!! DJT."
+]
 
 def _get_trump_phrase():
     """Get a random Trump-like phrase."""
     return random.choice(_trump_phrases)
 
-def set(tariff_sheet):
+def _get_trump_phrase_for_pausing_tariffs():
+    """Get a random Trump-like phrase for pausing tariffs."""
+    return random.choice(_trump_pause_phrases)
+
+def set(tariff_sheet, pause_probability=None):
     """
     Set tariff rates for packages.
     
     Args:
         tariff_sheet (dict): Dictionary mapping package names to tariff percentages.
                              e.g., {"numpy": 50, "pandas": 200}
+        pause_probability (float): The probability (between 0.0 - 1.0) to pause (remove) 
+                                   all tariffs when we are about to impose a tariff.
     """
-    global _tariff_sheet
+    global _tariff_sheet, _pause_probability
     _tariff_sheet = tariff_sheet
+    if pause_probability is not None:
+        _pause_probability = pause_probability
     
     # Only patch the import once
     if builtins.__import__ is not original_import:
@@ -63,6 +77,12 @@ def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     
     # Apply tariff if applicable
     if tariff_rate is not None:
+        # Maybe pause all tariffs instead
+        if random.random() < _pause_probability:
+            print(f"I have authorized a PAUSE of all TARIFFs! {_get_trump_phrase_for_pausing_tariffs()}")
+            _tariff_sheet.clear()
+            return module
+        
         # Calculate sleep time based on tariff rate
         sleep_time = original_import_time * (tariff_rate / 100)
         time.sleep(sleep_time / 1000000)  # convert back to seconds
