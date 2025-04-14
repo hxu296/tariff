@@ -14,6 +14,7 @@ pip install tariff
 
 ## Usage
 
+Tariffs on module imports:
 ```python
 import tariff
 
@@ -27,6 +28,17 @@ tariff.set({
 # Now when you import these packages, they'll be TARIFFED!
 import numpy   # This will be 50% slower
 import pandas  # This will be 200% slower
+```
+
+Tariffs on functions that run in foreign modules:
+```
+# Set your tariff rates
+tariff.set({
+    "pandas.Series.mean": 300,  # 300% tariff on pandas.Series.mean
+})
+import pandas
+df = pandas.DataFrame({"Name": ["Alice", "Bob", "Eve", ], "Age": [22, 35, 58], })
+df['Age'].mean()  # This will be 300% slower
 ```
 
 ## How It Works
