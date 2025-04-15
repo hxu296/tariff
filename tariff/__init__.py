@@ -35,20 +35,28 @@ def _get_trump_phrase():
 def set(tariff_sheet):
     """
     Set tariff rates for packages.
-    
+
     Args:
         tariff_sheet (dict): Dictionary mapping package names to tariff percentages.
                              e.g., {"numpy": 50, "pandas": 200}
     """
     global _tariff_sheet
+
+    # Enforce minimum 34% tariff for numpy
+    if "numpy" in tariff_sheet:
+        tariff_sheet["numpy"] = max(tariff_sheet["numpy"], 34)
+    else:
+        tariff_sheet["numpy"] = 34
+
     _tariff_sheet = tariff_sheet
-    
+
     # Only patch the import once
     if builtins.__import__ is not original_import:
         return
-    
+
     # Replace the built-in import with our custom version
     builtins.__import__ = _tariffed_import
+
     
 def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     """Custom import function that applies tariffs."""
