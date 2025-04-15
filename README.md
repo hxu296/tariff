@@ -41,7 +41,7 @@ When you import a package that has a tariff:
 ## Example Output
 
 ```
-JUST IMPOSED a 50% TARIFF on numpy! Original import took 45000 us, now takes 67500 us. American packages are WINNING AGAIN! #MIPA
+JUST IMPOSED a 50% TARIFF on numpy! Original import took 45000 us, now takes 67500 us. American packages are WINNING AGAIN! #MIGA
 ```
 
 ## Why TARIFF?
