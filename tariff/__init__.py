@@ -8,6 +8,9 @@ import builtins
 import importlib
 import random
 
+# Minimum tariff rate
+_minimum_tariff_rate=10
+
 # Store the original import function
 original_import = builtins.__import__
 
@@ -50,11 +53,11 @@ def set(tariff_sheet):
     # Replace the built-in import with our custom version
     builtins.__import__ = _tariffed_import
     
-def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
+def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0, pause=False):
     """Custom import function that applies tariffs."""
     # Check if the package is in our tariff sheet
     base_package = name.split('.')[0]
-    tariff_rate = _tariff_sheet.get(base_package)
+    tariff_rate = _tariff_sheet.get(base_package) if not pause else _minimum_tariff_rate
     
     # Measure import time
     start_time = time.time()
