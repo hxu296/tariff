@@ -2,11 +2,10 @@
 🇺🇸 TARIFF 🇺🇸 - Make importing great again!
 """
 
-import sys
 import time
 import builtins
-import importlib
 import random
+from pathlib import Path
 
 # Store the original import function
 original_import = builtins.__import__
@@ -15,18 +14,9 @@ original_import = builtins.__import__
 _tariff_sheet = {}
 
 # List of Trump-like phrases
-_trump_phrases = [
-    "American packages are WINNING AGAIN!",
-    "We're bringing back JOBS to our codebase!",
-    "This is how we get FAIR TRADE in Python!",
-    "Big win for AMERICAN programmers!",
-    "No more BAD DEALS with foreign packages!",
-    "Making Programming Great Again!",
-    "Believe me, this is the BEST tariff!",
-    "We're going to win SO MUCH, you'll get tired of winning!",
-    "This is how we Keep America Coding Again!",
-    "HUGE success!"
-]
+_trump_phrases = []
+with open(Path(__file__).parent / "trump_phrases.txt", 'r', encoding="utf-8") as phrases:
+    _trump_phrases = phrases.read().splitlines()
 
 def _get_trump_phrase():
     """Get a random Trump-like phrase."""
