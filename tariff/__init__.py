@@ -49,6 +49,23 @@ def set(tariff_sheet):
     
     # Replace the built-in import with our custom version
     builtins.__import__ = _tariffed_import
+
+def set_the_trump_way(impacted_packages):
+    """
+    Set tariff rates for specific packages in a Trump-like fashion.
+    This function randomly assigns a tariff rate between 50% and 200% to each impacted package.
+    
+    Args:
+        impacted_packages (list): List of package names to apply an healthy dose of tariffs to.
+    """
+
+    tariff_sheet = {}
+    for package in impacted_packages:
+        # Randomly choose a tariff rate between 50% and 200%
+        tariff_sheet[package] = random.randint(50, 200)
+
+    set(tariff_sheet)
+
     
 def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     """Custom import function that applies tariffs."""

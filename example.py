@@ -20,4 +20,12 @@ import sys
 print("\nImporting a package without tariffs:")
 import json
 
+print("\nSetting tariffs on packages the Trump way (at random)...")
+tariff.set_the_trump_way(["time", "os", "sys"])
+
+print("\nImporting packages with new tariffs:")
+import time
+import os
+import sys
+
 print("\nDemo completed! Make importing great again! 🇺🇸") 

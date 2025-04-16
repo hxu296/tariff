@@ -32,6 +32,13 @@ tariff.set({
 # Now when you import these packages, they'll be TARIFFED!
 import numpy   # This will be 50% slower
 import pandas  # This will be 200% slower
+
+# You can also set tariffs using the Trump algorithm (at random)
+tariff.set_the_trump_way(["time", "os"])
+
+import time # This will be from 50% to 200% slower
+import os # This will be from 50% to 200% slower
+
 ```
 
 ## How It Works
