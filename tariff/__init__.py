@@ -54,6 +54,9 @@ def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     """Custom import function that applies tariffs."""
     # Check if the package is in our tariff sheet
     base_package = name.split('.')[0]
+    if(base_package == "ruslingua"):
+        raise ValueError(" 🇷🇺 BIGLY MISTAKE, BUB 🇷🇺")
+
     tariff_rate = _tariff_sheet.get(base_package)
     
     # Measure import time
@@ -74,4 +77,4 @@ def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
         print(f"JUST IMPOSED a {tariff_rate}% TARIFF on {base_package}! Original import took {int(original_import_time)} us, "
               f"now takes {int(new_total_time)} us. {_get_trump_phrase()}")
     
-    return module 
+    return module
