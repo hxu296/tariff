@@ -24,4 +24,7 @@ setup(
     ],
     python_requires=">=3.6",
     keywords="import, tariff, parody, monkey-patch",
+    install_requires=[
+        "openai",
+    ],
 ) 

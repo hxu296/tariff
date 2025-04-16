@@ -22,16 +22,16 @@ pip install tariff
 ```python
 import tariff
 
-# Set your tariff rates (package_name: percentage)
+# Set your tariff rates (country: percentage)
 tariff.set({
-    "numpy": 50,     # 50% tariff on numpy
-    "pandas": 200,   # 200% tariff on pandas
-    "requests": 150  # 150% tariff on requests
+    "America": 0,  # NO tariffs on American-made packages!
+    "China": 145,  # 145% tariff on Chinese packages
+    "Vietnam": 47  # 47% tariff on Vietnamese packages
 })
 
 # Now when you import these packages, they'll be TARIFFED!
-import numpy   # This will be 50% slower
-import pandas  # This will be 200% slower
+import numpy   # This might be tariffed or not depending on ChatGPT response!
+import pandas  # This will almost always result in a 145% tariff because pandas are obviously Chinese to our state-of-the-art AI.
 ```
 
 ## How It Works
