@@ -25,7 +25,8 @@ _trump_phrases = [
     "Believe me, this is the BEST tariff!",
     "We're going to win SO MUCH, you'll get tired of winning!",
     "This is how we Keep America Coding Again!",
-    "HUGE success!"
+    "HUGE success!",
+    "Tariffs is the MOST BEAUTIFUL WORD in the dictionary!"
 ]
 
 def _get_trump_phrase():
