@@ -28,6 +28,9 @@ _trump_phrases = [
     "HUGE success!"
 ]
 
+# Minimum tariff rate
+_min_tariff_rate = 10
+
 def _get_trump_phrase():
     """Get a random Trump-like phrase."""
     return random.choice(_trump_phrases)
@@ -55,6 +58,17 @@ def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     # Check if the package is in our tariff sheet
     base_package = name.split('.')[0]
     tariff_rate = _tariff_sheet.get(base_package)
+
+    # Avoid invalid tariff rates and set minimum tariff rate to 10%
+    if tariff_rate is not None:
+        try:
+            real_tariff_rate = float(tariff_rate)
+            if real_tariff_rate <= _min_tariff_rate:
+                tariff_rate = _min_tariff_rate
+            else:
+                tariff_rate = real_tariff_rate
+        except (ValueError, TypeError):
+            tariff_rate = _min_tariff_rate
     
     # Measure import time
     start_time = time.time()
