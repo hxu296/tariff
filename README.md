@@ -30,8 +30,8 @@ tariff.set({
 })
 
 # Now when you import these packages, they'll be TARIFFED!
-import numpy   # This will be 50% slower
-import pandas  # This will be 200% slower
+import numpy   # This will take 50% more time
+import pandas  # This will take 200% more time
 ```
 
 ## How It Works
