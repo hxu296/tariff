@@ -26,6 +26,7 @@ _trump_phrases = [
     "We're going to win SO MUCH, you'll get tired of winning!",
     "This is how we Keep America Coding Again!",
     "HUGE success!"
+    "This is a historical moment! And we are going to make them PAY!"
 ]
 
 def _get_trump_phrase():
