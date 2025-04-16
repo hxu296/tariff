@@ -1,12 +1,12 @@
 """
 🇺🇸 TARIFF 🇺🇸 - Make importing great again!
 """
-
-import sys
-import time
 import builtins
-import importlib
+import functools
+import pkgutil
 import random
+import time
+import unittest.mock
 
 # Store the original import function
 original_import = builtins.__import__
@@ -25,12 +25,15 @@ _trump_phrases = [
     "Believe me, this is the BEST tariff!",
     "We're going to win SO MUCH, you'll get tired of winning!",
     "This is how we Keep America Coding Again!",
-    "HUGE success!"
+    "HUGE success!",
+    "If they complain, if you want your tariff rate to be zero, then you build your product right here."
 ]
+
 
 def _get_trump_phrase():
     """Get a random Trump-like phrase."""
     return random.choice(_trump_phrases)
+
 
 def set(tariff_sheet):
     """
@@ -42,36 +45,57 @@ def set(tariff_sheet):
     """
     global _tariff_sheet
     _tariff_sheet = tariff_sheet
-    
+
     # Only patch the import once
     if builtins.__import__ is not original_import:
         return
-    
+
     # Replace the built-in import with our custom version
     builtins.__import__ = _tariffed_import
-    
+
+    for key in _tariff_sheet:
+        if '.' in key:
+            fn = pkgutil.resolve_name(key)
+            if callable(fn):
+                @functools.wraps(fn)
+                def tariffed_function(*args, **kwargs):
+                    start_time = time.perf_counter()
+                    result = fn(*args, **kwargs)
+                    end_time = time.perf_counter()
+                    original_run_time = (end_time - start_time) * 1000000
+                    tariff_rate = _tariff_sheet.get(key)
+                    sleep_time = original_run_time * (tariff_rate / 100)
+                    time.sleep(sleep_time / 1000000)
+                    new_total_time = original_run_time + sleep_time
+                    print(f"JUST IMPOSED a {tariff_rate}% TARIFF on {key}! Original run took {int(original_run_time)} us, "
+                          f"now takes {int(new_total_time)} us. {_get_trump_phrase()}")
+                    return result
+
+                unittest.mock.patch(key, tariffed_function).__enter__()
+
+
 def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     """Custom import function that applies tariffs."""
     # Check if the package is in our tariff sheet
     base_package = name.split('.')[0]
     tariff_rate = _tariff_sheet.get(base_package)
-    
+
     # Measure import time
-    start_time = time.time()
+    start_time = time.perf_counter()
     module = original_import(name, globals, locals, fromlist, level)
-    original_import_time = (time.time() - start_time) * 1000000  # convert to microseconds
-    
+    original_import_time = (time.perf_counter() - start_time) * 1000000  # convert to microseconds
+
     # Apply tariff if applicable
     if tariff_rate is not None:
         # Calculate sleep time based on tariff rate
         sleep_time = original_import_time * (tariff_rate / 100)
         time.sleep(sleep_time / 1000000)  # convert back to seconds
-        
+
         # Calculate new total time
         new_total_time = original_import_time + sleep_time
-        
+
         # Print tariff announcement in Trump style
         print(f"JUST IMPOSED a {tariff_rate}% TARIFF on {base_package}! Original import took {int(original_import_time)} us, "
               f"now takes {int(new_total_time)} us. {_get_trump_phrase()}")
-    
-    return module 
+
+    return module
