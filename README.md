@@ -51,6 +51,33 @@ JUST IMPOSED a 50% TARIFF on numpy! Original import took 45000 us, now takes 675
 
 Because foreign packages have been STEALING our CPU cycles for TOO LONG! It's time to put AMERICA FIRST and make importing FAIR and BALANCED again!
 
+## Contributing
+
+### Commitconvetion
+
+```
+<type>[!]: <subject> [#issue]
+```
+
+#### types
+
+- **victory**: WE WIN BIG! Introducing a groundbreaking feature.
+- **disaster-averted**: NO MORE DISASTERS! Fixing a critical bug.
+- **truth**: FACTS ONLY! Updating documentation with the best information.
+- **beautify**: MAKE IT CLASSY! Improvements in design and style.
+- **genius**: PURE GENIUS! Code optimizations that are simply brilliant.
+- **turbo**: LIGHTNING FAST! Performance enhancements that speed up everything.
+- **proof**: UNDENIABLE PROOF! Adding or improving tests that secure everything.
+- **duty**: JUST DO IT! Necessary tasks that must be done because we can.
+
+#### subject
+
+Write a TREMENDOUS commit message
+
+#### Issues
+
+Issues are just thorny opportunities for tremendous success!
+
 ## License
 
 This is a parody package. Use at your own risk. MAKE IMPORTING GREAT AGAIN! 
