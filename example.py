@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# /// script
+# dependencies = [
+#     "tariff",
+# ]
+# ///
 """
 Example usage of the tariff package.
 """
