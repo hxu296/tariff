@@ -7,6 +7,7 @@ import time
 import builtins
 import importlib
 import random
+import platform
 
 # Store the original import function
 original_import = builtins.__import__
@@ -32,46 +33,56 @@ def _get_trump_phrase():
     """Get a random Trump-like phrase."""
     return random.choice(_trump_phrases)
 
+def _heard_mcdonald():
+    """Increase tariffs for penguins."""
+    if platform.system() == 'Linux':
+        for e, v in _tariff_sheet.items():
+            _tariff_sheet[e] =  29 + v
+        print(f"Extra 29% tariff for the RADICAL LEFT penguins. THEY'VE BEEN TAKING ADVANTAGE OF US FOR YEARS. {_get_trump_phrase()}")
+
 def set(tariff_sheet):
     """
     Set tariff rates for packages.
-    
+
     Args:
         tariff_sheet (dict): Dictionary mapping package names to tariff percentages.
                              e.g., {"numpy": 50, "pandas": 200}
     """
     global _tariff_sheet
     _tariff_sheet = tariff_sheet
-    
+
     # Only patch the import once
     if builtins.__import__ is not original_import:
         return
-    
+
     # Replace the built-in import with our custom version
     builtins.__import__ = _tariffed_import
-    
+
+    # Further tax the penguins
+    _heard_mcdonald()
+
 def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     """Custom import function that applies tariffs."""
     # Check if the package is in our tariff sheet
     base_package = name.split('.')[0]
     tariff_rate = _tariff_sheet.get(base_package)
-    
+
     # Measure import time
     start_time = time.time()
     module = original_import(name, globals, locals, fromlist, level)
     original_import_time = (time.time() - start_time) * 1000000  # convert to microseconds
-    
+
     # Apply tariff if applicable
     if tariff_rate is not None:
         # Calculate sleep time based on tariff rate
         sleep_time = original_import_time * (tariff_rate / 100)
         time.sleep(sleep_time / 1000000)  # convert back to seconds
-        
+
         # Calculate new total time
         new_total_time = original_import_time + sleep_time
-        
+
         # Print tariff announcement in Trump style
         print(f"JUST IMPOSED a {tariff_rate}% TARIFF on {base_package}! Original import took {int(original_import_time)} us, "
               f"now takes {int(new_total_time)} us. {_get_trump_phrase()}")
-    
-    return module 
+
+    return module
