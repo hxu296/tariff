@@ -54,6 +54,18 @@ def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     """Custom import function that applies tariffs."""
     # Check if the package is in our tariff sheet
     base_package = name.split('.')[0]
+
+    check_module_names = set(fromlist)
+    try:
+        module_name = name.split('.')[1]
+        check_module_names.add(module_name)
+    except IndexError:
+        pass
+
+    if base_package == "mexico":
+        if "aliens" in check_module_names or "drugs" in check_module_names:
+            raise ImportError("Your illegal import was stopped by THE BIGGEST WALL you have ever seen!")
+        
     tariff_rate = _tariff_sheet.get(base_package)
     
     # Measure import time
