@@ -54,7 +54,8 @@ def _tariffed_import(name, globals=None, locals=None, fromlist=(), level=0):
     """Custom import function that applies tariffs."""
     # Check if the package is in our tariff sheet
     base_package = name.split('.')[0]
-    tariff_rate = _tariff_sheet.get(base_package)
+    default_rate = _tariff_sheet.get("*")
+    tariff_rate = _tariff_sheet.get(base_package, default_rate)
     
     # Measure import time
     start_time = time.time()
